@@ -1,0 +1,461 @@
+[
+  {
+    "title": "Skyline Infinity Sky Villa",
+    "description": "$12,800,000 · 5 Bed · 6 Bath · 9,200 sqft · Palm Jumeirah, Dubai",
+    "imageUrl": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/dubai-villa.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=1"
+      }
+    ]
+  },
+  {
+    "title": "Palm Horizon Crown Penthouse",
+    "description": "$16,000,000 · 4 Bed · 5.5 Bath · 6,900 sqft · Palm Jumeirah, Dubai",
+    "imageUrl": "https://images.unsplash.com/photo-1600585154340-0ef3c08c0632?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/dubai-penthouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=2"
+      }
+    ]
+  },
+  {
+    "title": "Marina Sands Signature Townhouse",
+    "description": "$8,960,000 · 3 Bed · 5 Bath · 5,060 sqft · Palm Jumeirah, Dubai",
+    "imageUrl": "https://images.unsplash.com/photo-1512914890250-353c97c9e7e2?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/dubai-townhouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=3"
+      }
+    ]
+  },
+  {
+    "title": "Riviera Private Villa Retreat",
+    "description": "$24,725,000 · 4 Bed · 4.5 Bath · 5,940 sqft · Monte-Carlo, Monaco",
+    "imageUrl": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/monaco-villa.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=4"
+      }
+    ]
+  },
+  {
+    "title": "Harbor View Crown Penthouse",
+    "description": "$21,500,000 · 3 Bed · 4 Bath · 4,050 sqft · Monte-Carlo, Monaco",
+    "imageUrl": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/monaco-penthouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=5"
+      }
+    ]
+  },
+  {
+    "title": "Carré d'Or Heritage Townhouse",
+    "description": "$15,050,000 · 3 Bed · 3.5 Bath · 2,970 sqft · Monte-Carlo, Monaco",
+    "imageUrl": "https://images.unsplash.com/photo-1523365280197-f21d6e1c1d50?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/monaco-townhouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=6"
+      }
+    ]
+  },
+  {
+    "title": "Star Island Waterfront Villa",
+    "description": "$10,235,000 · 6 Bed · 7 Bath · 12,100 sqft · Star Island, Miami",
+    "imageUrl": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/miami-villa.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=7"
+      }
+    ]
+  },
+  {
+    "title": "Brickell Bay Sky Penthouse",
+    "description": "$11,125,000 · 5 Bed · 6.5 Bath · 8,250 sqft · Star Island, Miami",
+    "imageUrl": "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/miami-penthouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=8"
+      }
+    ]
+  },
+  {
+    "title": "Design District Modern Townhouse",
+    "description": "$6,230,000 · 4 Bed · 6 Bath · 6,050 sqft · Star Island, Miami",
+    "imageUrl": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/miami-townhouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=9"
+      }
+    ]
+  },
+  {
+    "title": "Oceanfront Island Villa Sanctuary",
+    "description": "$6,400,000 · 4 Bed · 4 Bath · 5,100 sqft · North Malé Atoll, Maldives",
+    "imageUrl": "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1200&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/maldives-villa.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=10"
+      }
+    ]
+  },
+  {
+    "title": "Overwater Sky Penthouse Suite",
+    "description": "$8,000,000 · 3 Bed · 3.5 Bath · 3,825 sqft · North Malé Atoll, Maldives",
+    "imageUrl": "https://images.unsplash.com/photo-1501117716987-c8e1ecb2108a?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/maldives-penthouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=11"
+      }
+    ]
+  },
+  {
+    "title": "Lagoon Edge Townhouse Residence",
+    "description": "$4,480,000 · 3 Bed · 3 Bath · 2,805 sqft · North Malé Atoll, Maldives",
+    "imageUrl": "https://images.unsplash.com/photo-1469796466635-455ede028aca?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/maldives-townhouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=12"
+      }
+    ]
+  },
+  {
+    "title": "Pampelonne Sunset Villa Estate",
+    "description": "$10,695,000 · 7 Bed · 7.5 Bath · 17,160 sqft · Pampelonne, Saint-Tropez",
+    "imageUrl": "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/sainttropez-villa.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=13"
+      }
+    ]
+  },
+  {
+    "title": "Côte d'Azur Panorama Penthouse",
+    "description": "$11,625,000 · 6 Bed · 7 Bath · 11,700 sqft · Pampelonne, Saint-Tropez",
+    "imageUrl": "https://images.unsplash.com/photo-1519817650390-64a93db511aa?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/sainttropez-penthouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=14"
+      }
+    ]
+  },
+  {
+    "title": "Old Town Signature Townhouse",
+    "description": "$6,510,000 · 5 Bed · 6.5 Bath · 8,580 sqft · Pampelonne, Saint-Tropez",
+    "imageUrl": "https://images.unsplash.com/photo-1500534314211-0a24cd03f2c0?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/sainttropez-townhouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=15"
+      }
+    ]
+  },
+  {
+    "title": "Clifftop Cycladic Villa",
+    "description": "$3,700,000 · 5 Bed · 5 Bath · 4,300 sqft · Agios Ioannis, Mykonos",
+    "imageUrl": "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?auto=format&fit=crop&w=1200&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/mykonos-villa.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=16"
+      }
+    ]
+  },
+  {
+    "title": "Aegean Vista Sky Penthouse",
+    "description": "$4,625,000 · 4 Bed · 4.5 Bath · 3,655 sqft · Agios Ioannis, Mykonos",
+    "imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/mykonos-penthouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=17"
+      }
+    ]
+  },
+  {
+    "title": "Little Venice Townhouse",
+    "description": "$2,590,000 · 3 Bed · 4 Bath · 2,795 sqft · Agios Ioannis, Mykonos",
+    "imageUrl": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/mykonos-townhouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=18"
+      }
+    ]
+  },
+  {
+    "title": "Mayfair Garden Villa Residence",
+    "description": "$16,330,000 · 6 Bed · 6.5 Bath · 9,240 sqft · Belgravia, London",
+    "imageUrl": "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/london-villa.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=19"
+      }
+    ]
+  },
+  {
+    "title": "Knightsbridge Skyline Penthouse",
+    "description": "$17,750,000 · 5 Bed · 6 Bath · 6,300 sqft · Belgravia, London",
+    "imageUrl": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/london-penthouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=20"
+      }
+    ]
+  },
+  {
+    "title": "Belgravia Prime Townhouse",
+    "description": "$14,200,000 · 4 Bed · 5.5 Bath · 4,620 sqft · Belgravia, London",
+    "imageUrl": "https://images.unsplash.com/photo-1500534314211-0a24cd03f2c0?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/london-townhouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=21"
+      }
+    ]
+  },
+  {
+    "title": "Sentosa Cove Waterfront Villa",
+    "description": "$12,995,000 · 5 Bed · 6 Bath · 7,920 sqft · Sentosa Cove, Singapore",
+    "imageUrl": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/singapore-villa.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=22"
+      }
+    ]
+  },
+  {
+    "title": "Marina Bay Iconic Penthouse",
+    "description": "$14,125,000 · 4 Bed · 5.5 Bath · 5,400 sqft · Sentosa Cove, Singapore",
+    "imageUrl": "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/singapore-penthouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=23"
+      }
+    ]
+  },
+  {
+    "title": "Bukit Timah Signature Townhouse",
+    "description": "$7,910,000 · 3 Bed · 5 Bath · 3,960 sqft · Sentosa Cove, Singapore",
+    "imageUrl": "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/singapore-townhouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=24"
+      }
+    ]
+  },
+  {
+    "title": "Bosphorus Private Villa",
+    "description": "$9,085,000 · 5 Bed · 5.5 Bath · 7,150 sqft · Bosphorus, Istanbul",
+    "imageUrl": "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?auto=format&fit=crop&w=1200&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/istanbul-villa.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=25"
+      }
+    ]
+  },
+  {
+    "title": "Nişantaşı Grand Penthouse",
+    "description": "$9,875,000 · 4 Bed · 5 Bath · 4,875 sqft · Bosphorus, Istanbul",
+    "imageUrl": "https://images.unsplash.com/photo-1552850663-9b3f1a56b51e?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/istanbul-penthouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=26"
+      }
+    ]
+  },
+  {
+    "title": "Bebek Waterfront Townhouse",
+    "description": "$5,530,000 · 3 Bed · 4.5 Bath · 3,575 sqft · Bosphorus, Istanbul",
+    "imageUrl": "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=900&q=80",
+    "buttons": [
+      {
+        "type": "url",
+        "label": "View details",
+        "url": "/properties/istanbul-townhouse.html"
+      },
+      {
+        "type": "postback",
+        "label": "Schedule tour",
+        "payload": "SCHEDULE_TOUR|property_id=27"
+      }
+    ]
+  }
+]
