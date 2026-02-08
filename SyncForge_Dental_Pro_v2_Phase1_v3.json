@@ -1417,7 +1417,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const free_slots = $input.item.json.free_slots || [];\nconst prev = $('Resolve Doctor+Duration').first().json;\nconst doctor_id = prev.session?.doctor_id || prev.doctor_id || '';\nconst from = prev.from || prev.session?.user_id || $('Parse WhatsApp').first().json.from || '';\n\nconst maxRows = 10;\nconst limitedRows = free_slots.slice(0, maxRows).map(slot => {\n  const startDate = new Date(slot.start);\n  const hhmm = startDate.toTimeString().substring(0, 5);\n  const ddmmm = startDate.toLocaleDateString('tr-TR', { day: '2-digit', month: 'short', weekday: 'short' });\n  return {\n    id: 'slot|' + slot.start + '|' + doctor_id,\n    title: hhmm,\n    description: ddmmm\n  };\n});\n\nconst sections = [{ title: 'Uygun Saatler', rows: limitedRows }];\nconst payload = {\n  messaging_product: 'whatsapp',\n  to: from,\n  type: 'interactive',\n  interactive: {\n    type: 'list',\n    header: { type: 'text', text: 'Saat Seçin 🕐' },\n    body: { text: 'Uygun saati seçin:' },\n    action: {\n      button: 'Saatleri Gör',\n      sections\n    }\n  }\n};\nreturn { json: { ...prev, free_slots, payload } };"
+        "jsCode": "const free_slots = $input.item.json.free_slots || [];\nconst prev = $('Resolve Doctor+Duration').first().json;\nconst doctor_id = prev.session?.doctor_id || prev.doctor_id || '';\nconst from = prev.from || prev.session?.user_id || $('Parse WhatsApp').first().json.from || '';\nconst event = $input.item.json.event || {};\n\nconst toDayKey = (iso) => new Date(iso).toLocaleDateString('en-CA', { timeZone: 'Europe/Istanbul' });\nconst selectedDay = event.kind === 'day' ? event.value : '';\n\nif (!selectedDay) {\n  const dayMap = new Map();\n  free_slots.forEach(slot => {\n    const dayKey = toDayKey(slot.start);\n    if (!dayMap.has(dayKey)) {\n      dayMap.set(dayKey, new Date(slot.start));\n    }\n  });\n\n  const dayRows = Array.from(dayMap.entries()).slice(0, 10).map(([dayKey, date]) => {\n    const label = date.toLocaleDateString('tr-TR', { weekday: 'long', day: '2-digit', month: 'short', timeZone: 'Europe/Istanbul' });\n    return {\n      id: 'day|' + dayKey,\n      title: label.substring(0, 24),\n      description: 'Uygun gün'\n    };\n  });\n\n  const payload = {\n    messaging_product: 'whatsapp',\n    to: from,\n    type: 'interactive',\n    interactive: {\n      type: 'list',\n      header: { type: 'text', text: 'Gün Seçin 📅' },\n      body: { text: 'Uygun bir gün seçin:' },\n      action: {\n        button: 'Günleri Gör',\n        sections: [{ title: 'Uygun Günler', rows: dayRows }]\n      }\n    }\n  };\n\n  return { json: { ...prev, free_slots, payload } };\n}\n\nconst session = { ...prev.session };\nsession.state = 'DAY_SELECTED';\nsession.updated_at = new Date().toISOString();\n\nconst maxRows = 10;\nconst filteredSlots = free_slots.filter(slot => toDayKey(slot.start) === selectedDay);\nconst limitedRows = filteredSlots.slice(0, maxRows).map(slot => {\n  const startDate = new Date(slot.start);\n  const hhmm = startDate.toTimeString().substring(0, 5);\n  const ddmmm = startDate.toLocaleDateString('tr-TR', { day: '2-digit', month: 'short', weekday: 'short' });\n  return {\n    id: 'slot|' + slot.start + '|' + doctor_id,\n    title: hhmm,\n    description: ddmmm\n  };\n});\n\nconst sections = [{ title: 'Uygun Saatler', rows: limitedRows }];\nconst payload = {\n  messaging_product: 'whatsapp',\n  to: from,\n  type: 'interactive',\n  interactive: {\n    type: 'list',\n    header: { type: 'text', text: 'Saat Seçin 🕐' },\n    body: { text: 'Seçtiğiniz gün için uygun saati seçin:' },\n    action: {\n      button: 'Saatleri Gör',\n      sections\n    }\n  }\n};\nreturn { json: { ...prev, session, free_slots, payload } };"
       },
       "id": "ff980767-0aff-4829-a07f-0f1e57d40d9f",
       "name": "Build Slots Payload",
@@ -2534,7 +2534,7 @@
           "cachedResultName": "syncforge.automation@gmail.com"
         },
         "timeMin": "={{ $now.toISO() }}",
-        "timeMax": "={{ $now.plus({days: 7}).toISO() }}",
+        "timeMax": "={{ $now.plus({days: 14}).toISO() }}",
         "options": {}
       },
       "id": "6bdd0c9d-6771-456a-a895-bf7a269c5d6b",
@@ -2554,7 +2554,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const slot_duration_min = $input.item.json.slot_duration_min || 30;\nconst buffer_min = $input.item.json.buffer_min || 0;\nconst total_slot_min = slot_duration_min + buffer_min;\n\n// Get busy intervals from calendar freebusy response\nconst freebusyData = $input.item.json;\nlet busyIntervals = [];\nif (freebusyData.busy) {\n  busyIntervals = freebusyData.busy;\n} else if (freebusyData.calendars) {\n  const calId = Object.keys(freebusyData.calendars)[0];\n  if (calId) busyIntervals = freebusyData.calendars[calId].busy || [];\n}\n\nconst busyTimes = busyIntervals.map(interval => ({\n  start: new Date(interval.start),\n  end: new Date(interval.end)\n}));\n\nfunction isSlotBusy(slotStart, slotEnd) {\n  return busyTimes.some(busy => (slotStart < busy.end && slotEnd > busy.start));\n}\n\n// FIX #8: Türkiye timezone'u kullan\nfunction getTurkeyDate(baseDate) {\n  const turkeyStr = baseDate.toLocaleString('en-US', { timeZone: 'Europe/Istanbul' });\n  return new Date(turkeyStr);\n}\n\nconst free_slots = [];\nconst nowUTC = new Date();\nconst nowTurkey = getTurkeyDate(nowUTC);\n\nfor (let day = 0; day < 7; day++) {\n  // Türkiye saatiyle 10:00 başlat\n  const dayStart = new Date(nowTurkey);\n  dayStart.setDate(dayStart.getDate() + day);\n  dayStart.setHours(10, 0, 0, 0);\n  \n  const dayEnd = new Date(dayStart);\n  dayEnd.setHours(18, 0, 0, 0);\n  \n  // Türkiye saatini UTC'ye çevir (Google Calendar UTC kullanır)\n  const offsetMs = nowTurkey.getTime() - nowUTC.getTime();\n  \n  let cursor = new Date(dayStart.getTime() - offsetMs); // UTC karşılığı\n  const endUTC = new Date(dayEnd.getTime() - offsetMs);\n  \n  // Geçmiş slotları atla\n  if (cursor < nowUTC) {\n    // Şu anki saatten sonraki ilk slot'a atla\n    const msSinceDayStart = nowUTC.getTime() - cursor.getTime();\n    const slotsToSkip = Math.ceil(msSinceDayStart / (total_slot_min * 60000));\n    cursor = new Date(cursor.getTime() + slotsToSkip * total_slot_min * 60000);\n  }\n  \n  while (cursor < endUTC) {\n    const slotStart = new Date(cursor);\n    const slotEnd = new Date(cursor.getTime() + total_slot_min * 60000);\n    \n    if (slotEnd <= endUTC && !isSlotBusy(slotStart, slotEnd)) {\n      free_slots.push({\n        start: slotStart.toISOString(),\n        end: new Date(slotStart.getTime() + slot_duration_min * 60000).toISOString()\n      });\n    }\n    \n    cursor.setTime(cursor.getTime() + total_slot_min * 60000);\n    if (free_slots.length >= 20) break;\n  }\n  \n  if (free_slots.length >= 20) break;\n}\n\nreturn { json: { ...$input.item.json, free_slots } };"
+        "jsCode": "const slot_duration_min = $input.item.json.slot_duration_min || 30;\nconst buffer_min = $input.item.json.buffer_min || 0;\nconst total_slot_min = slot_duration_min + buffer_min;\n\n// Get busy intervals from calendar freebusy response\nconst freebusyData = $input.item.json;\nlet busyIntervals = [];\nif (freebusyData.busy) {\n  busyIntervals = freebusyData.busy;\n} else if (freebusyData.calendars) {\n  const calId = Object.keys(freebusyData.calendars)[0];\n  if (calId) busyIntervals = freebusyData.calendars[calId].busy || [];\n}\n\nconst busyTimes = busyIntervals.map(interval => ({\n  start: new Date(interval.start),\n  end: new Date(interval.end)\n}));\n\nfunction isSlotBusy(slotStart, slotEnd) {\n  return busyTimes.some(busy => (slotStart < busy.end && slotEnd > busy.start));\n}\n\n// FIX #8: Türkiye timezone'u kullan\nfunction getTurkeyDate(baseDate) {\n  const turkeyStr = baseDate.toLocaleString('en-US', { timeZone: 'Europe/Istanbul' });\n  return new Date(turkeyStr);\n}\n\nconst free_slots = [];\nconst nowUTC = new Date();\nconst nowTurkey = getTurkeyDate(nowUTC);\n\nlet businessDays = 0;\nlet dayOffset = 0;\nconst maxSlots = 50;\n\nwhile (businessDays < 10 && free_slots.length < maxSlots) {\n  const dayStart = new Date(nowTurkey);\n  dayStart.setDate(dayStart.getDate() + dayOffset);\n  const weekday = dayStart.getDay();\n  dayOffset += 1;\n\n  if (weekday === 0 || weekday === 6) {\n    continue;\n  }\n\n  dayStart.setHours(10, 0, 0, 0);\n  const dayEnd = new Date(dayStart);\n  dayEnd.setHours(18, 0, 0, 0);\n\n  const offsetMs = nowTurkey.getTime() - nowUTC.getTime();\n  let cursor = new Date(dayStart.getTime() - offsetMs);\n  const endUTC = new Date(dayEnd.getTime() - offsetMs);\n\n  if (cursor < nowUTC) {\n    const msSinceDayStart = nowUTC.getTime() - cursor.getTime();\n    const slotsToSkip = Math.ceil(msSinceDayStart / (total_slot_min * 60000));\n    cursor = new Date(cursor.getTime() + slotsToSkip * total_slot_min * 60000);\n  }\n\n  while (cursor < endUTC && free_slots.length < maxSlots) {\n    const slotStart = new Date(cursor);\n    const slotEnd = new Date(cursor.getTime() + total_slot_min * 60000);\n\n    if (slotEnd <= endUTC && !isSlotBusy(slotStart, slotEnd)) {\n      free_slots.push({\n        start: slotStart.toISOString(),\n        end: new Date(slotStart.getTime() + slot_duration_min * 60000).toISOString()\n      });\n    }\n\n    cursor.setTime(cursor.getTime() + total_slot_min * 60000);\n  }\n\n  businessDays += 1;\n}\n\nreturn { json: { ...$input.item.json, free_slots } };"
       },
       "id": "9dbbc55b-4d23-4255-a68e-a69f66511ed8",
       "name": "Generate Real Slots from Freebusy",
@@ -4268,26 +4268,26 @@
                   "typeValidation": "strict",
                   "version": 3
                 },
-                "conditions": [
-                  {
-                    "id": "d488549a",
-                    "leftValue": "={{ $json.session.state }}",
-                    "rightValue": "AWAITING_FULLNAME",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  },
-                  {
-                    "id": "9d6f8c2a",
-                    "leftValue": "={{ $json.event.kind }}",
-                    "rightValue": "text",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
+              "conditions": [
+                {
+                  "id": "d488549a",
+                  "leftValue": "={{ $json.session.state }}",
+                  "rightValue": "TC_VERIFIED",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
                   }
-                ],
+                },
+                {
+                  "id": "9d6f8c2a",
+                  "leftValue": "={{ $json.event.kind }}",
+                  "rightValue": "text",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
                 "combinator": "and"
               },
               "renameOutput": true,
@@ -4535,11 +4535,10 @@
                 "conditions": [
                   {
                     "id": "7dad0179",
-                    "leftValue": "={{ $json.session.state }}",
-                    "rightValue": "DOCTOR_SELECTED",
+                    "leftValue": "={{ ['DOCTOR_SELECTED', 'DAY_SELECTED'].includes($json.session.state) }}",
                     "operator": {
-                      "type": "string",
-                      "operation": "equals"
+                      "type": "boolean",
+                      "operation": "true"
                     }
                   },
                   {
@@ -6308,7 +6307,7 @@
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const from = $('Parse WhatsApp').first().json.from;\nconst tc = ($input.item.json.text_raw || '').trim();\nconst session = { ...$input.item.json.session };\n\n// TC Kimlik algoritma doğrulaması\nfunction validateTC(tc) {\n  if (!/^\\d{11}$/.test(tc)) return false;\n  if (tc[0] === '0') return false;\n  const d = tc.split('').map(Number);\n  const odd = d[0] + d[2] + d[4] + d[6] + d[8];\n  const even = d[1] + d[3] + d[5] + d[7];\n  if ((odd * 7 - even) % 10 !== d[9]) return false;\n  if (d.slice(0, 10).reduce((a, b) => a + b, 0) % 10 !== d[10]) return false;\n  return true;\n}\n\nconst isValid = validateTC(tc);\n\nif (isValid) {\n  session.tc_kimlik = tc;\n  session.state = 'AWAITING_FULLNAME';\n  session.updated_at = new Date().toISOString();\n  \n  const payload = {\n    messaging_product: 'whatsapp',\n    to: from,\n    type: 'text',\n    text: { body: '✅ TC doğrulandı.\\nLütfen adınızı ve soyadınızı girin:' }\n  };\n  return { json: { ...$input.item.json, session, payload, tc_valid: true } };\n} else {\n  const payload = {\n    messaging_product: 'whatsapp',\n    to: from,\n    type: 'text',\n    text: { body: '❌ Geçersiz TC Kimlik numarası.\\nLütfen 11 haneli TC numaranızı tekrar girin:' }\n  };\n  return { json: { ...$input.item.json, session, payload, tc_valid: false } };\n}"
+        "jsCode": "const from = $('Parse WhatsApp').first().json.from;\nconst tc = ($input.item.json.text_raw || '').trim();\nconst session = { ...$input.item.json.session };\n\n// TC Kimlik algoritma doğrulaması\nfunction validateTC(tc) {\n  if (!/^\\d{11}$/.test(tc)) return false;\n  if (tc[0] === '0') return false;\n  const d = tc.split('').map(Number);\n  const odd = d[0] + d[2] + d[4] + d[6] + d[8];\n  const even = d[1] + d[3] + d[5] + d[7];\n  if ((odd * 7 - even) % 10 !== d[9]) return false;\n  if (d.slice(0, 10).reduce((a, b) => a + b, 0) % 10 !== d[10]) return false;\n  return true;\n}\n\nconst isValid = validateTC(tc);\n\nif (isValid) {\n  session.tc_kimlik = tc;\n  session.state = 'TC_VERIFIED';\n  session.updated_at = new Date().toISOString();\n  \n  const payload = {\n    messaging_product: 'whatsapp',\n    to: from,\n    type: 'text',\n    text: { body: '✅ TC doğrulandı.\\nLütfen adınızı ve soyadınızı girin:' }\n  };\n  return { json: { ...$input.item.json, session, payload, tc_valid: true } };\n} else {\n  const payload = {\n    messaging_product: 'whatsapp',\n    to: from,\n    type: 'text',\n    text: { body: '❌ Geçersiz TC Kimlik numarası.\\nLütfen 11 haneli TC numaranızı tekrar girin:' }\n  };\n  return { json: { ...$input.item.json, session, payload, tc_valid: false } };\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
